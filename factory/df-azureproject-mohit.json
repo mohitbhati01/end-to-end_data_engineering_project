@@ -1,0 +1,9 @@
+{
+	"name": "df-azureproject-mohit",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "66f5eafc-af82-41fe-91bd-af0c3a9b2d40",
+		"tenantId": "3e0040f7-9f35-43de-a3cc-503bd44116e8"
+	}
+}
