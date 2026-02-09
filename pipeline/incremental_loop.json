@@ -8,6 +8,11 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.loop_input",
+						"type": "Expression"
+					},
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "SQL-to-LAKE",
@@ -179,10 +184,13 @@
 												"parameters": {
 													"container": "bronze",
 													"folder": {
-														"value": "@pipeline().parameters.table",
+														"value": "@item().table",
 														"type": "Expression"
 													},
-													"file": "@concat(pipeline().parameters.table,'_',variables('current'))"
+													"file": {
+														"value": "@concat(item().table,'_',variables('current'))",
+														"type": "Expression"
+													}
 												}
 											},
 											"enableLogging": false,
@@ -314,7 +322,38 @@
 		"parameters": {
 			"loop_input": {
 				"type": "array",
-				"defaultValue": "[   {     \"schema\" : \"dbo\",     \"table\" : \"DimUser\",     \"cdc_col\" : \"updated_at\"     \"from_date\" : \"\"       },   {     \"schema\" : \"dbo\",     \"table\" : \"DimTrack\",     \"cdc_col\" : \"updated_at\"     \"from_date\" : \"\"       },   {     \"schema\" : \"dbo\",     \"table\" : \"DimDate\",     \"cdc_col\" : \"updated_at\"     \"from_date\" : \"\"       },   {     \"schema\" : \"dbo\",     \"table\" : \"DimArtist\",     \"cdc_col\" : \"updated_at\"     \"from_date\" : \"\"       },   {     \"schema\" : \"dbo\",     \"table\" : \"FactStream\",     \"cdc_col\" : \"updated_at\"     \"from_date\" : \"\"       } ]"
+				"defaultValue": [
+					{
+						"schema": "dbo",
+						"table": "DimUser",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "DimTrack",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "DimDate",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "DimArtist",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					},
+					{
+						"schema": "dbo",
+						"table": "FactStream",
+						"cdc_col": "updated_at",
+						"from_date": ""
+					}
+				]
 			}
 		},
 		"variables": {
